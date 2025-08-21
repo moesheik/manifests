@@ -1,0 +1,28 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Rollout
+metadata:
+  name: frontend
+  namespace: default
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: frontend
+  template:
+    metadata:
+      labels:
+        app: frontend
+    spec:
+      containers:
+        - name: frontend
+          image: nginx:1.19
+          ports:
+            - containerPort: 80
+  strategy:
+    canary:
+      steps:
+        - setWeight: 20
+        - pause: { duration: 30 }
+        - setWeight: 50
+        - pause: { duration: 30 }
+        - setWeight: 100
