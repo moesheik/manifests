@@ -41,7 +41,7 @@ jobs:
         run: Get-Date
         shell: pwsh
 
-Job3:
+  Job3:
     # The type of runner that the job will run on
     runs-on: macos-latest
     needs: [Job1, Job2]
